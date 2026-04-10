@@ -14,8 +14,7 @@ class parent;
   endfunction
   
 endclass
-
-
+  
 
 //Nested Class
 
@@ -29,30 +28,28 @@ class address;
   endfunction
   
 endclass
+  
 
-  
-  
 //Child class
 
-  class child ;
+  class child extends parent;
   
  int id;
  string grade;
-    parent hdr;
     address adr;
   
     function new( string name,string roll_no,int id, string grade,string addr);
       
-     hdr=new(name,roll_no);
+      super.new(name,roll_no); 
       adr=new(addr);
     this.id=id;
     this.grade=grade;
     
   endfunction
     
-    function void display(string name);
+    function void display(string name1);
       
-      $display(" [%s] Name of the student = %s | Roll_no = %s | Id = %0d | Grade = %s | Address = %s",name,hdr.name,hdr.roll_no,id,grade,adr.addr);
+      $display("[%s] Name of the student = %s | Roll_no = %s | Id = %0d | Grade = %s | Address = %s",name1,name,roll_no,id,grade,adr.addr);
       
     endfunction
     
@@ -64,7 +61,7 @@ module shallow_copy;
   
   initial begin
     
-    c1=new("Naveen","22ECE37",37,"A","Madurai");
+    c1=new("Naveen","22ECE37",37,"A","Chennai");
     
     c1.display("c1");
     
@@ -72,11 +69,11 @@ module shallow_copy;
     
     c2.display("c2");
     
-    c2.hdr.name="Megalan";
-    c2.hdr.roll_no="22ECE35";
+    c2.name="Megalan";
+    c2.roll_no="22ECE35";
     c2.id=35;
     c2.grade="A+";
-    c2.adr.addr="Salem";
+    c2.adr.addr="Erode";
     
     c1.display("c1");
     
@@ -85,17 +82,51 @@ module shallow_copy;
   end
 endmodule
     
-   
+    
 
-/* OUTPUT 
+ /* OUTPUT 
+
+  
+[c1] Name of the student = Naveen | Roll_no = 22ECE37 | Id = 37 | Grade = A | Address = Chennai
+[c2] Name of the student = Naveen | Roll_no = 22ECE37 | Id = 37 | Grade = A | Address = Chennai
+[c1] Name of the student = Naveen | Roll_no = 22ECE37 | Id = 37 | Grade = A | Address = Erode
+[c2] Name of the student = Megalan | Roll_no = 22ECE35 | Id = 35 | Grade = A+ | Address = Erode
+
+*/
+    
+  
 
 
- [c1] Name of the student = Naveen | Roll_no = 22ECE37 | Id = 37 | Grade = A | Address = Madurai
- [c2] Name of the student = Naveen | Roll_no = 22ECE37 | Id = 37 | Grade = A | Address = Madurai
- [c1] Name of the student = Megalan | Roll_no = 22ECE35 | Id = 37 | Grade = A | Address = Salem
- [c2] Name of the student = Megalan | Roll_no = 22ECE35 | Id = 35 | Grade = A+ | Address = Salem
- 
- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -113,6 +144,3 @@ endmodule
 
 
   
-
-
-
